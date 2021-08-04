@@ -3,6 +3,7 @@
 #include <iostream>
 using std::cout;
 using std::endl;
+using std::cin;
 
 #include <cstdlib>
 using std::rand;
@@ -23,6 +24,7 @@ int main()
    //cin >> wager;
    while(bankBalance > 0 && bankBalance <= bankBalance_max)
    { 
+      cout << "Your balance: " << bankBalance << endl;
       cout << "Enter your rate:\n";
       cin >> wager;
       if(wager > bankBalance)
@@ -33,9 +35,15 @@ int main()
 	 bankBalance -= wager;
 
       if(bankBalance <= 0)
+      {
          cout << "You lost, lucky another time ...\n";
+	 break;
+      }
       else if(bankBalance >= bankBalance_max)
+      {
          cout << "You won, congratulations!\n";
+	 break;
+      }
    }
    return 0;
 }
