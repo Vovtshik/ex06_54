@@ -53,7 +53,7 @@ int main()
    }
 
    if(gameStatus == WON)
-      cout << "Payer wins" << endl;
+      cout << "Player wins" << endl;
    else
       cout << "Player loses" << endl;
 
