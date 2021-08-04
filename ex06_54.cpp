@@ -10,59 +10,39 @@ using std::srand;
 
 #include <ctime>
 using std::time;
+
 int rollDice();
+bool craps_game();
 
 int main()
 {
-   enum Status{CONTINUE, WON, LOST};
-
-   int myPoint;
-   Status gameStatus;
-
-   srand(time(0));
-
-   int sumOfDice = rollDice();
-
-   switch(sumOfDice)
-   {
-      case 7:
-      case 11:
-         gameStatus = WON;
-	 break;
-      case 2:
-      case 3:
-      case 12:
-	 gameStatus = LOST;
-         break;
-      default:
-	 gameStatus = CONTINUE;
-	 myPoint = sumOfDice;
-	 cout << "Point is "  << myPoint << endl;
-	 break; 
-   }
-
-   while(gameStatus == CONTINUE)
-   {
-      sumOfDice = rollDice();
-
-      if(sumOfDice == myPoint)
-         gameStatus = WON;
+   int bankBalance = 1000;
+   int bankBalance_max = 5000;
+   int wager;
+   //cout << "Enter your rate:\n";
+   //cin >> wager;
+   while(bankBalance > 0 && bankBalance <= bankBalance_max)
+   { 
+      cout << "Enter your rate:\n";
+      cin >> wager;
+      if(wager > bankBalance)
+         continue;
+      if(craps_game())
+         bankBalance += wager;
       else
-	 if(sumOfDice == 7)
-	    gameStatus = LOST;
+	 bankBalance -= wager;
+
+      if(bankBalance <= 0)
+         cout << "You lost, lucky another time ...\n";
+      else if(bankBalance >= bankBalance_max)
+         cout << "You won, congratulations!\n";
    }
-
-   if(gameStatus == WON)
-      cout << "Player wins" << endl;
-   else
-      cout << "Player loses" << endl;
-
    return 0;
 }
 
 bool craps_game()
 {
-    enum Status{CONTINUE, WON, LOST};
+   enum Status{CONTINUE, WON, LOST};
 
    int myPoint;
    Status gameStatus;
