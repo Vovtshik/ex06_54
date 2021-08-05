@@ -14,21 +14,25 @@ using std::time;
 
 int rollDice();
 bool craps_game();
+void inner_voice(int);
 
 int main()
 {
    int bankBalance = 1000;
    int bankBalance_max = 5000;
    int wager;
-   //cout << "Enter your rate:\n";
-   //cin >> wager;
+   
    while(bankBalance > 0 && bankBalance <= bankBalance_max)
    { 
       cout << "Your balance: " << bankBalance << endl;
+      inner_voice(bankBalance);      
+
       cout << "Enter your rate:\n";
       cin >> wager;
+   
       if(wager > bankBalance)
          continue;
+      
       if(craps_game())
          bankBalance += wager;
       else
@@ -42,8 +46,10 @@ int main()
       else if(bankBalance >= bankBalance_max)
       {
          cout << "You won, congratulations!\n";
+	 cout << "Your balance: " << bankBalance << endl;
 	 break;
       }
+
    }
    return 0;
 }
@@ -83,9 +89,8 @@ bool craps_game()
 
       if(sumOfDice == myPoint)
          gameStatus = WON;
-      else
-         if(sumOfDice == 7)
-            gameStatus = LOST;
+      else if(sumOfDice == 7)
+         gameStatus = LOST;
    }
 
    if(gameStatus == WON)
@@ -98,6 +103,7 @@ bool craps_game()
       cout << "Player loses" << endl;
       return false;
    }
+
 }
 
 
@@ -114,3 +120,12 @@ int rollDice()
    return sum;
 }
 
+void inner_voice(int balance)
+{
+   if(balance < 1000)
+      cout << "О! Вы собираетесь разориться, ха!\n";
+   else if(balance >= 1000 && balance <= 2000)
+      cout << "Try your luck!\n";
+   else if(balance > 2000)
+      cout << "You are lucky! Now is the time to exchange your chips for cash!\n";
+}
